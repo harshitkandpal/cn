@@ -1,0 +1,145 @@
+Network discovery is an essential part of network management and security assessments. Tools like Nmap and MRTG can help you identify open and closed ports, as well as the services running on a target machine. Below is a step-by-step guide on how to use these tools for network discovery.
+
+### **1. Network Discovery with Nmap**
+
+Nmap (Network Mapper) is a powerful open-source tool used for network exploration and security auditing. It can quickly discover hosts and services on a computer network.
+
+#### **Installation of Nmap**
+
+If you don't have Nmap installed, you can install it using the following commands based on your operating system:
+
+- **Ubuntu/Debian:**
+  ```bash
+  sudo apt update
+  sudo apt install nmap
+  ```
+
+- **CentOS/RHEL:**
+  ```bash
+  sudo yum install nmap
+  ```
+
+- **Windows:**
+  You can download the installer from the [Nmap official website](https://nmap.org/download.html).
+
+#### **Basic Usage of Nmap**
+
+1. **Discover Live Hosts:**
+   To scan a subnet (e.g., `192.168.1.0/24`) for live hosts:
+   ```bash
+   nmap -sn 192.168.1.0/24
+   ```
+
+2. **Scan for Open Ports:**
+   To scan a specific host (e.g., `192.168.1.10`) for open ports:
+   ```bash
+   nmap 192.168.1.10
+   ```
+
+3. **Service Version Detection:**
+   To detect the services running on open ports and their versions:
+   ```bash
+   nmap -sV 192.168.1.10
+   ```
+
+4. **Scan All Ports:**
+   By default, Nmap scans the 1000 most common ports. To scan all 65535 ports:
+   ```bash
+   nmap -p- 192.168.1.10
+   ```
+
+5. **Combine Scans:**
+   To scan for open ports and detect services in a single command:
+   ```bash
+   nmap -sS -sV 192.168.1.10
+   ```
+
+#### **Interpreting Nmap Results**
+
+After running an Nmap scan, you'll receive output indicating the status of ports and the services associated with them. The output might look something like this:
+
+```
+PORT     STATE SERVICE       VERSION
+22/tcp open  ssh           OpenSSH 7.6 (protocol 2.0)
+80/tcp open  http          Apache httpd 2.4.29 ((Ubuntu))
+443/tcp open  ssl/https     Apache httpd 2.4.29
+```
+
+- **PORT**: The port number and protocol (TCP/UDP).
+- **STATE**: Indicates whether the port is open, closed, or filtered.
+- **SERVICE**: The name of the service running on that port.
+- **VERSION**: The version of the service (if detected).
+
+### **2. Network Discovery with MRTG**
+
+MRTG (Multi Router Traffic Grapher) is a tool used to monitor the traffic load on network links, but it can also help with network discovery by monitoring the interfaces of network devices.
+
+#### **Installation of MRTG**
+
+To install MRTG, use the following commands based on your operating system:
+
+- **Ubuntu/Debian:**
+  ```bash
+  sudo apt update
+  sudo apt install mrtg
+  ```
+
+- **CentOS/RHEL:**
+  ```bash
+  sudo yum install mrtg
+  ```
+
+#### **Setting Up MRTG for Network Discovery**
+
+1. **Configure MRTG:**
+   You’ll need to configure MRTG to monitor your network devices. The configuration file is usually located at `/etc/mrtg.cfg`. You can generate this file using the `cfgmaker` command.
+
+   For example, to monitor a router at `192.168.1.1` with SNMP, use:
+   ```bash
+   sudo cfgmaker --global "workdir:/var/www/html/mrtg" --global "language:english" --output /etc/mrtg.cfg public@192.168.1.1
+   ```
+
+   Replace `public` with the SNMP community string of your device.
+
+2. **Run MRTG:**
+   To start MRTG and generate the initial traffic graphs:
+   ```bash
+   sudo mrtg /etc/mrtg.cfg
+   ```
+
+3. **Set Up Cron Job:**
+   To continuously update the MRTG graphs, set up a cron job. Edit the cron table:
+   ```bash
+   crontab -e
+   ```
+
+   Add the following line to run MRTG every 5 minutes:
+   ```bash
+   */5 * * * * /usr/bin/mrtg /etc/mrtg.cfg
+   ```
+
+### **Identifying Open and Closed Ports and Services**
+
+- **Nmap** is primarily used for discovering open ports and services.
+- **MRTG** helps monitor network traffic but is not designed specifically for port scanning.
+
+### **Example Nmap Commands and Expected Results**
+
+1. **Live Host Discovery:**
+   ```bash
+   nmap -sn 192.168.1.0/24
+   ```
+
+2. **Open Port Scan:**
+   ```bash
+   nmap -p 1-1000 192.168.1.10
+   ```
+
+3. **Service Detection:**
+   ```bash
+   nmap -sV 192.168.1.10
+   ```
+
+### Conclusion
+
+By using Nmap and MRTG, you can effectively perform network discovery, identify open and closed ports, and determine the services running on target machines. Always ensure you have permission to scan any network devices, as unauthorized scanning can be considered intrusive and may violate network policies. If you have any further questions or need additional examples, feel free to ask!
