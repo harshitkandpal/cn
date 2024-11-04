@@ -1,0 +1,213 @@
+Here's a guide to help you with your CN practical tasks:
+
+### 1. **Basic Networking Commands in Linux**
+You will be using a terminal to run these commands.
+
+- **ping**: To check network connectivity between two devices.
+  ```bash
+  ping <IP address/hostname>
+  ```
+- **traceroute**: To trace the path packets take to a network destination.
+  ```bash
+  traceroute <hostname/IP>
+  ```
+  (In some distros, you may need to install `traceroute` first: `sudo apt-get install traceroute`)
+  
+- **nslookup**: To query DNS to get domain name or IP address.
+  ```bash
+  nslookup <domain name/IP address>
+  ```
+
+- **netstat**: To view active connections and network statistics.
+  ```bash
+  netstat -a
+  netstat -r # Shows routing table
+  ```
+
+- **arp**: To view and modify the ARP table.
+  ```bash
+  arp -a # Shows ARP cache
+  arp -d <IP> # Deletes a specific ARP entry
+  arp -s <IP> <MAC address> # Manually adds an ARP entry
+  ```
+
+- **rarp**: It's less commonly used now, but stands for Reverse ARP.
+  ```bash
+  sudo apt-get install rarpd # If needed
+  ```
+
+- **ip**: A newer alternative to `ifconfig` for configuring network interfaces.
+  ```bash
+  ip addr show # Displays IP address info
+  ```
+
+- **ifconfig**: To configure network interfaces.
+  ```bash
+  ifconfig
+  ```
+
+- **dig**: For querying DNS records.
+  ```bash
+  dig <domain name>
+  ```
+
+- **route**: To view and manipulate the IP routing table.
+  ```bash
+  route -n # View current routing table
+  ```
+
+---
+
+### 7. **IP Address Setup on a Single LAN**
+
+#### a. **Set up Multiple IP Addresses on a Single LAN**
+1. Check your network interface (e.g., `eth0`, `wlan0`):
+   ```bash
+   ifconfig
+   ```
+
+2. Add another IP to the same interface:
+   ```bash
+   sudo ifconfig eth0:0 <IP_address> netmask <Netmask>
+   sudo ifconfig eth0:1 <IP_address> netmask <Netmask>
+   ```
+
+#### b. **Using netstat and route**
+
+- **View current routing table**:
+  ```bash
+  netstat -r
+  route -n
+  ```
+
+- **Add and delete routes**:
+  - Add route:
+    ```bash
+    sudo route add -net <network_address> netmask <netmask> gw <gateway>
+    ```
+
+  - Delete route:
+    ```bash
+    sudo route del -net <network_address> netmask <netmask>
+    ```
+
+- **Change default gateway**:
+  ```bash
+  sudo route add default gw <gateway_IP>
+  ```
+
+---
+
+### 8. **Implement Error Detection Method using CRC**
+
+Here’s an example of a Cyclic Redundancy Check (CRC) algorithm in Python.
+
+```python
+def xor(a, b):
+    result = []
+    for i in range(1, len(b)):
+        if a[i] == b[i]:
+            result.append('0')
+        else:
+            result.append('1')
+    return ''.join(result)
+
+def mod2div(dividend, divisor):
+    pick = len(divisor)
+    tmp = dividend[0: pick]
+    
+    while pick < len(dividend):
+        if tmp[0] == '1':
+            tmp = xor(divisor, tmp) + dividend[pick]
+        else:
+            tmp = xor('0'*pick, tmp) + dividend[pick]
+        pick += 1
+
+    if tmp[0] == '1':
+        tmp = xor(divisor, tmp)
+    else:
+        tmp = xor('0'*pick, tmp)
+
+    return tmp
+
+def encodeData(data, key):
+    l_key = len(key)
+    appended_data = data + '0'*(l_key-1)
+    remainder = mod2div(appended_data, key)
+    codeword = data + remainder
+    return codeword
+
+data = "1101011111"
+key = "10011"
+print("Encoded data: ", encodeData(data, key))
+```
+
+This code demonstrates a basic CRC encoding process. You can run this in a Python environment.
+
+---
+
+### 9. **Socket Programming Using TCP or UDP**
+
+Here’s a simple example of a TCP client-server program in Python:
+
+**Server (TCP)**
+```python
+import socket
+
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server_socket.bind(('localhost', 12345))
+server_socket.listen(1)
+print("Server is waiting for client connection...")
+
+conn, addr = server_socket.accept()
+print(f"Connected by {addr}")
+
+while True:
+    data = conn.recv(1024)
+    if not data:
+        break
+    print(f"Received: {data.decode()}")
+    conn.sendall(data)
+
+conn.close()
+```
+
+**Client (TCP)**
+```python
+import socket
+
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', 12345))
+
+message = input("Enter message to send: ")
+client_socket.sendall(message.encode())
+data = client_socket.recv(1024)
+
+print(f"Received: {data.decode()}")
+client_socket.close()
+```
+
+---
+
+### 10. **Perform Remote Login using Telnet Server**
+
+1. First, install telnet (if not installed):
+   ```bash
+   sudo apt-get install telnetd
+   ```
+
+2. Start the telnet service:
+   ```bash
+   sudo service inetutils-inetd start
+   ```
+
+3. Connect to the server using telnet from another machine:
+   ```bash
+   telnet <server IP address>
+   ```
+
+   You can also test it locally by telnetting to `localhost`.
+
+---
+
+Good luck with your CN practical! If you need further clarification, feel free to ask.
