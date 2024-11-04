@@ -1,0 +1,59 @@
+This page provides a step-by-step guide for performing a remote login using Telnet. Here's a breakdown of each step in the process:
+
+1. **Update the System and Install Telnet:**
+   ```bash
+   sudo apt update
+   sudo apt install telnet
+   ```
+   - These commands are used to update the package list and install the Telnet client on your system, allowing you to initiate a Telnet session to a remote server.
+
+2. **Find the IP Address of the Remote Machine:**
+   ```bash
+   ifconfig
+   ```
+   - Running `ifconfig` will display the network configuration of your machine, including the IP address. You need to know the IP address of the machine you want to connect to for the Telnet session.
+
+3. **Initiate Telnet Session:**
+   ```bash
+   telnet 172.16.20.180
+   ```
+   - Replace `172.16.20.180` with the actual IP address of the remote machine. This command initiates a Telnet connection to the specified IP address.
+
+4. **Navigate to the Desktop:**
+   ```bash
+   cd Desktop
+   ```
+   - This changes the directory to the Desktop on the remote machine.
+
+5. **Create, Edit, and View a Text File:**
+   - **Create a File:**
+     ```bash
+     touch fruit.txt
+     ```
+     - This command creates a new file called `fruit.txt` on the Desktop.
+   
+   - **Edit the File:**
+     ```bash
+     vim fruit.txt
+     ```
+     - This opens the `fruit.txt` file in the `vim` editor, allowing you to edit its contents.
+   
+   - **Write and Quit the Editor:**
+     ```bash
+     :wq
+     ```
+     - In `vim`, typing `:wq` saves the changes and exits the editor.
+
+   - **View the File Contents:**
+     ```bash
+     cat fruit.txt
+     ```
+     - This command displays the contents of `fruit.txt` in the terminal.
+
+6. **Exit the Telnet Session:**
+   ```bash
+   exit
+   ```
+   - This command terminates the Telnet session and disconnects from the remote host.
+
+These instructions guide you through connecting to a remote machine, creating and editing a file, and then disconnecting using Telnet.
