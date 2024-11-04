@@ -32,16 +32,17 @@ def mod2div(dividend, divisor):
 def encodeData(data, key):
     l_key = len(key)
     appended_data = data + '0'*(l_key-1)
-    remainder = mod2div(appended_data, key)
-    codeword = data + remainder
-    return codeword
+    remainder = mod2div(appended_data, key)  # Calculate the CRC (remainder)
+    codeword = data + remainder              # Append remainder (CRC) to the data to get the final encoded data
+    return codeword, remainder               # Return both encoded data and remainder (CRC)
 
 # Taking input from user
 data = input("Enter the data: ")
 key = input("Enter the key (polynomial): ")
 
 # Encoding the data
-encoded_data = encodeData(data, key)
+encoded_data, crc = encodeData(data, key)
 
-# Displaying the encoded data
-print("Encoded data: ", encoded_data)
+# Displaying the encoded data and CRC
+print("CRC (remainder): ", crc)
+print("Encoded data (data + CRC): ", encoded_data)
