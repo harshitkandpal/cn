@@ -1,4 +1,3 @@
-# Function to perform XOR between two strings
 def xor(a, b):
     result = []
     for i in range(1, len(b)):
@@ -8,7 +7,6 @@ def xor(a, b):
             result.append('1')
     return ''.join(result)
 
-# Function to perform Mod-2 division
 def mod2div(dividend, divisor):
     pick = len(divisor)
     tmp = dividend[0:pick]
@@ -16,11 +14,11 @@ def mod2div(dividend, divisor):
     while pick < len(dividend):
         if tmp[0] == '1':
             tmp = xor(divisor, tmp) + dividend[pick]
-        else:  # If first bit is '0', perform XOR with 0's
+        else:  
             tmp = xor('0'*pick, tmp) + dividend[pick]
         pick += 1
 
-    # Perform XOR for the last time
+
     if tmp[0] == '1':
         tmp = xor(divisor, tmp)
     else:
@@ -28,21 +26,21 @@ def mod2div(dividend, divisor):
 
     return tmp
 
-# Function to encode data using the given key
+
 def encodeData(data, key):
     l_key = len(key)
     appended_data = data + '0'*(l_key-1)
-    remainder = mod2div(appended_data, key)  # Calculate the CRC (remainder)
-    codeword = data + remainder              # Append remainder (CRC) to the data to get the final encoded data
-    return codeword, remainder               # Return both encoded data and remainder (CRC)
+    remainder = mod2div(appended_data, key)  
+    codeword = data + remainder              
+    return codeword, remainder               
 
-# Taking input from user
+
 data = input("Enter the data: ")
 key = input("Enter the key (polynomial): ")
 
-# Encoding the data
+
 encoded_data, crc = encodeData(data, key)
 
-# Displaying the encoded data and CRC
+
 print("CRC (remainder): ", crc)
 print("Encoded data (data + CRC): ", encoded_data)
