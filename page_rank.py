@@ -1,27 +1,21 @@
-def calculate_page_rank(graph, num_iterations=100, d=0.85):
-    # Initialize page rank values
-    page_rank = {node: 1 / len(graph) for node in graph}
-    
-    for _ in range(num_iterations):
-        new_rank = {}
-        for node in graph:
-            new_rank[node] = (1 - d) / len(graph)  # Base rank for each node
-            for neighbor in graph[node]:
-                new_rank[node] += d * (page_rank[neighbor] / len(graph[neighbor]))
-        page_rank = new_rank
-    
-    return page_rank
+import numpy as np
 
-# Example usage
-if __name__ == "__main__":
-    # Define a simple directed graph
-    web_graph = {
-        'A': ['B', 'C'],
-        'B': ['C'],
-        'C': ['A'],
-        'D': ['C'],
-    }
+num_nodes = 3
+iterations = 10
+damping_factor = 0.85
 
-    # Calculate PageRank
-    ranks = calculate_page_rank(web_graph)
-    print("PageRank Scores:", ranks)
+adj_matrix = np.array([
+    [0, 0, 1],
+    [1, 0, 1],
+    [1, 1, 0]
+])
+
+transition_matrix = adj_matrix / adj_matrix.sum(axis=0)
+
+rank_vector = np.ones(num_nodes) / num_nodes
+
+for i in range(iterations):
+    rank_vector = ((1 - damping_factor) / num_nodes) + damping_factor * transition_matrix.dot(rank_vector)
+    print(f"Iteration {i+1}: {rank_vector}")
+
+print("\nFinal PageRank:", rank_vector)
