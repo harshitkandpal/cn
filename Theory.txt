@@ -1,0 +1,118 @@
+Pract 1
+Data Discretization
+Data discretization is the process of transforming continuous data into a set of discrete categories or intervals.
+Example: Imagine you have the age of people as a continuous number (like 23.5, 45.2, etc.). Discretization would convert this into categories like "20-30," "30-40," and "40-50," so you have groups instead of individual numbers.
+Purpose: It makes data easier to analyze, especially for machine learning algorithms that work better with categories.
+
+Data Visualization
+Data visualization is the practice of creating graphical representations (like charts, graphs, and plots) to understand and communicate data insights.
+Example: A bar chart showing the number of people in each age group or a scatterplot showing height vs. weight.
+Purpose: Visualizing data helps you spot trends, patterns, and relationships more easily than looking at raw numbers.
+
+In short:
+Data Discretization groups data into categories.
+Data Visualization displays data in charts or graphs to make it easier to interpret.
+
+Pract 2
+Data Cleaning
+Data cleaning is the process of fixing or removing incorrect, corrupted, or incomplete data from a dataset.
+Examples:
+  - Removing duplicates (e.g., if the same data entry is listed twice).
+  - Filling in missing data (like adding average age if some age values are missing).
+  - Correcting errors (e.g., fixing misspelled words or correcting “Male” and “M” to be consistent).
+Purpose: To make sure the data is accurate, consistent, and ready for analysis.
+
+Data Preprocessing
+Definition: Data preprocessing involves transforming raw data into a format that’s suitable for analysis or for feeding into a machine learning model.
+Examples:
+  - Normalizing or scaling numbers (e.g., converting salaries into a 0-1 range for better comparison).
+  - Encoding categorical data (e.g., converting "Male" and "Female" into numerical values, like 0 and 1).
+  - Splitting data (e.g., dividing data into training and testing sets for model testing).
+Purpose: To prepare data so that algorithms can understand it and work more effectively.
+
+In short:
+Data Cleaning removes or fixes bad data.
+Data Preprocessing transforms data into the right format for analysis.
+
+Pract 3
+The Apriori algorithm is a method used in data mining to find frequent patterns or associations in a large dataset, like items that are often bought together in a store. It’s commonly used in market basket analysis.
+
+1. Frequent Itemsets: It identifies items that appear frequently together in transactions.
+2. Association Rules: It generates rules to show relationships, like “If a customer buys bread, they are likely to also buy butter.
+
+How It Works (In Simple Steps):
+1. Count Items: Start by finding single items that appear often (like bread or milk).
+2. Build Combinations: Then, look for pairs of items that appear together (like bread and butter).
+3. Filter by Threshold: Only keep combinations that meet a minimum frequency (called support).
+4. Generate Rules: Finally, create rules from these frequent item pairs, showing how likely one item is bought if another is bought (called confidence).
+
+Example:
+If many people buy *diapers and baby wipes* together, the Apriori algorithm can find this pattern. The store might then place these items close together to boost sales.
+
+Purpose:
+The Apriori algorithm helps businesses:
+- Understand customer buying habits.
+- Optimize product placement.
+- Design targeted promotions.
+
+In short, the Apriori algorithm finds patterns and associations in data to predict item co-occurrences.
+
+Pract 4
+The Naive Bayes algorithm is a method for sorting things into categories based on probability, which is useful in machine learning. It’s “naive” because it assumes that each feature (or piece of information) in the data is independent from the others—even if that’s not always true. This makes it simple and fast.
+
+Key Points:
+1. Uses Probability: It looks at the chances (or probability) of data belonging to a particular category.
+2. Based on Bayes' Theorem: This is a formula that helps calculate how likely an outcome is based on previous knowledge.
+3. Best for Simple Problems: It’s effective for tasks where speed matters more than perfect accuracy.
+
+How It Works:
+1. Learn from Data: The algorithm learns from examples (training data) to see which characteristics are common in each category.
+2. Calculate Likelihood: For new data, it calculates the probability of it belonging to each category.
+3. Pick the Best Match: It classifies the data into the category with the highest probability.
+
+Example:
+In email spam detection:
+- Naive Bayes learns which words (like "free" or "prize") are common in spam emails.
+- For each new email, it calculates the probability that the email is spam based on the words in it.
+- If the probability is high, it classifies the email as spam.
+
+Where It’s Used:
+Naive Bayes is popular for:
+- Sorting emails into “spam” or “not spam.”
+- Identifying emotions in text (like positive or negative).
+- Basic medical diagnosis by analyzing symptoms.
+
+In short, Naive Bayes is a quick, easy way to classify data based on probability, even if the data features are not perfectly related.
+
+Pract 5 
+Hierarchical clustering is a method of grouping data points into clusters based on their similarity. It organizes data in a tree-like structure, which helps in understanding how clusters form at different levels. A **dendrogram** is a visual representation of this process.
+
+Key Ideas:
+1. Hierarchical Structure: Hierarchical clustering creates a hierarchy (or levels) of clusters, from individual points all the way up to one big cluster that includes all data points.
+2. Two Main Types:
+   - Agglomerative: Starts with each point as its own cluster and merges the closest clusters step-by-step until there’s only one cluster.
+   - Divisive: Starts with one large cluster containing all points, then splits it into smaller clusters.
+
+What’s a Dendrogram?
+- A dendrogram is a tree-like diagram that shows the arrangement of clusters formed at each step.
+- Each branch represents a merge (in agglomerative clustering) or a split (in divisive clustering).
+- The height of each branch indicates the distance (or dissimilarity) between clusters: the higher the branch, the more different the clusters.
+
+How It Works (In Simple Steps):
+1. Calculate Similarity: Find the similarity (or distance) between each pair of data points.
+2. Merge or Split: Based on the distance, either merge the closest clusters or split the farthest apart clusters.
+3. Build the Dendrogram: As clusters are merged or split, record each step in the dendrogram.
+4. Choose Clusters: Cut the dendrogram at a certain height to decide the number of clusters.
+
+Example:
+Imagine grouping animals based on characteristics:
+- Start with each animal as its own group (dog, cat, bird, etc.).
+- Merge similar animals (like dog and cat) into larger groups step-by-step.
+- The dendrogram shows how each animal groups together, so you can decide where to "cut" the tree to get clusters like “mammals,” “birds,” and so on.
+
+Purpose:
+Hierarchical clustering with dendrograms helps:
+- Visualize the structure of data.
+- Decide how many clusters are ideal by "cutting" the dendrogram at different levels.
+
+In short, hierarchical clustering groups data into a hierarchy, and a dendrogram shows this process in a tree-like diagram, helping you see how clusters form and relate.
